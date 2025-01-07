@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func CountChar(file *os.File) {
@@ -26,4 +27,18 @@ func CountLines(file *os.File) {
 		fmt.Printf("error reading file: %v\n", err)
 	}
 	fmt.Printf("%d %s\n", lineCount, file.Name())
+}
+
+func CountWords(file *os.File) {
+	scanner := bufio.NewScanner(file)
+	wordCount := 0
+	for scanner.Scan() {
+		line := scanner.Text()
+		words := strings.Fields(line)
+		wordCount += len(words)
+	}
+	if err := scanner.Err(); err != nil {
+		fmt.Printf("error reading file: %v\n", err)
+	}
+	fmt.Printf("%d %s\n", wordCount, file.Name())
 }
