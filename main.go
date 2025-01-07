@@ -8,6 +8,7 @@ import (
 
 func main() {
 	charFlag := flag.Bool("c", false, "Count the total number of bytes in the file")
+	lineFlag := flag.Bool("l", false, "Count the total number of lines in the file")
 	flag.Parse()
 
 	filePath := flag.Arg(0)
@@ -20,7 +21,9 @@ func main() {
 	defer file.Close()
 
 	if *charFlag {
-		Gwc(file)
+		CountChar(file)
+	} else if *lineFlag {
+		CountLines(file)
 	} else {
 		fmt.Printf("Usage: gwc [-c] <file-path>")
 		os.Exit(1)
